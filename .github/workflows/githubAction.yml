@@ -43,6 +43,11 @@ jobs:
           SNOWFLAKE_WAREHOUSE=${SNOWFLAKE_WAREHOUSE}
           EOF
 
+      - name: Install & register ipykernel
+        run: |
+          pip install ipykernel                   
+          python -m ipykernel install --user \
+                --name python3 --display-name "Python 3"   
 
       - name: Create outputs directory
         run: mkdir -p outputs
