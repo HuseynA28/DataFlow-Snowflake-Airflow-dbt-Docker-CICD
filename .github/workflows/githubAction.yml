@@ -1,16 +1,13 @@
 name: Run Data-Load Notebook
 
 on:
-  push:
-    branches: [ main ]
-  pull_request:
-    branches: [ main ]
+  push: {branches: [main]}
+  pull_request: {branches: [main]}
 
 jobs:
   execute-notebook:
     runs-on: ubuntu-latest
     env:
-      # Expose your Snowflake creds (set these in Settings → Secrets)
       SNOWFLAKE_ACCOUNT:   ${{ secrets.SNOWFLAKE_ACCOUNT }}
       SNOWFLAKE_USER:      ${{ secrets.SNOWFLAKE_USER }}
       SNOWFLAKE_PASSWORD:  ${{ secrets.SNOWFLAKE_PASSWORD }}
@@ -18,46 +15,45 @@ jobs:
       SNOWFLAKE_WAREHOUSE: ${{ secrets.SNOWFLAKE_WAREHOUSE }}
 
     steps:
-      - name: Check out repository
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-      - name: Set up Python 3.x
-        uses: actions/setup-python@v4
-        with:
-          python-version: '3.11'
+      - uses: actions/setup-python@v4
+        with: {python-version: '3.11'}
 
-      - name: Cache pip
-        uses: actions/cache@v3
+      - uses: actions/cache@v3
         with:
           path: ~/.cache/pip
           key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements.txt') }}
-          restore-keys: |
-            ${{ runner.os }}-pip-
+          restore-keys: ${{ runner.os }}-pip-
 
-      - name: Install dependencies
+      - name: Install deps
         run: |
-          pip install --upgrade pip
+          pip install -U pip
           pip install -r requirements.txt
-          pip install papermill
+          pip install papermill python-dotenv
 
+   
       - name: Build .env from secrets
         run: |
-          cat <<EOF > .env
-          SNOWFLAKE_ACCOUNT=$SNOWFLAKE_ACCOUNT
-          SNOWFLAKE_USER=$SNOWFLAKE_USER
-          SNOWFLAKE_PASSWORD=$SNOWFLAKE_PASSWORD
-          SNOWFLAKE_ROLE=$SNOWFLAKE_ROLE
-          SNOWFLAKE_WAREHOUSE=$SNOWFLAKE_WAREHOUSE
+          cat <<'EOF' > .env
+          SNOWFLAKE_ACCOUNT=${SNOWFLAKE_ACCOUNT}
+          SNOWFLAKE_USER=${SNOWFLAKE_USER}
+          SNOWFLAKE_PASSWORD=${SNOWFLAKE_PASSWORD}
+          SNOWFLAKE_ROLE=${SNOWFLAKE_ROLE}
+          SNOWFLAKE_WAREHOUSE=${SNOWFLAKE_WAREHOUSE}
           EOF
 
-      - name: Run Data-Load notebook
+
+      - name: Create outputs directory
+        run: mkdir -p outputs
+
+      - name: Run notebook with Papermill
         run: |
           papermill \
             notebooks/snowpark_bootstrap.ipynb \
             outputs/snowpark_bootstrap-output.ipynb
 
-      - name: Upload executed notebook artifact
-        uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v4
         with:
           name: executed-notebook
-          path: outputs/snowpark_bootstrap-output.ipynb
+          path: outputs/snowpark_bootstrap-outpu_
