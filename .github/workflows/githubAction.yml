@@ -42,8 +42,8 @@ jobs:
       - name: Run 1_load_data notebook
         run: |
           papermill \
-            notebooks/1_load_data.ipynb \
-            outputs/1_load_data-output.ipynb \
+            notebooks/snowpark_bootstrap.ipynb.ipynb \
+            outputs/snowpark_bootstrap.ipynb-output.ipynb \
             --parameters env_file=".env"
 
       - name: Upload executed notebook artifact
