@@ -1,0 +1,6 @@
+version :2
+source:
+- name: NETFLIX_RAW_STAGE
+- database: DBT_DB
+- schema :BT_SCHEMA
+- stage :NETFLIX_RAW_STAGE
