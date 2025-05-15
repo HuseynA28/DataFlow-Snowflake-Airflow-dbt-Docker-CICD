@@ -1,0 +1,53 @@
+name: Run Data-Load Notebook
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  execute-notebook:
+    runs-on: ubuntu-latest
+    env:
+      SNOWFLAKE_ACCOUNT: ${{ secrets.SNOWFLAKE_ACCOUNT }}
+      SNOWFLAKE_USER:    ${{ secrets.SNOWFLAKE_USER }}
+      SNOWFLAKE_PASSWORD:${{ secrets.SNOWFLAKE_PASSWORD }}
+      SNOWFLAKE_ROLE:    ${{ secrets.SNOWFLAKE_ROLE }}     # if you set it as a secret
+      SNOWFLAKE_WAREHOUSE: ${{ secrets.SNOWFLAKE_WAREHOUSE }}
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python 3.x
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+
+      - name: Cache pip
+        uses: actions/cache@v3
+        with:
+          path: ~/.cache/pip
+          key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements.txt') }}
+          restore-keys: |
+            ${{ runner.os }}-pip-
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+          pip install papermill
+
+      - name: Run 1_load_data notebook
+        run: |
+          papermill \
+            notebooks/1_load_data.ipynb \
+            outputs/1_load_data-output.ipynb \
+            --parameters env_file=".env"
+
+      - name: Upload executed notebook artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: executed-notebook
+          path: outputs/1_load_data-output.ipynb

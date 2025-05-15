@@ -1,2 +1,6 @@
 dbt-snowflake
 dbt-core
+python-dotenv
+snowflake-snowpark-python
+scikit-learn==1.3.0
+pandas
