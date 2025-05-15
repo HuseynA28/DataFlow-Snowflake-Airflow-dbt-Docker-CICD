@@ -12,7 +12,7 @@ jobs:
     env:
       SNOWFLAKE_ACCOUNT: ${{ secrets.SNOWFLAKE_ACCOUNT }}
       SNOWFLAKE_USER:    ${{ secrets.SNOWFLAKE_USER }}
-      SNOWFLAKE_PASSWORD:${{ secrets.SNOWFLAKE_PASSWORD }}
+      SNOWFLAKE_PASSWORD: ${{ secrets.SNOWFLAKE_PASSWORD }}
       SNOWFLAKE_ROLE:    ${{ secrets.SNOWFLAKE_ROLE }}     # if you set it as a secret
       SNOWFLAKE_WAREHOUSE: ${{ secrets.SNOWFLAKE_WAREHOUSE }}
 
