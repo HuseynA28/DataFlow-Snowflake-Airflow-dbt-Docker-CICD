@@ -10,10 +10,11 @@ jobs:
   execute-notebook:
     runs-on: ubuntu-latest
     env:
-      SNOWFLAKE_ACCOUNT: ${{ secrets.SNOWFLAKE_ACCOUNT }}
-      SNOWFLAKE_USER:    ${{ secrets.SNOWFLAKE_USER }}
-      SNOWFLAKE_PASSWORD: ${{ secrets.SNOWFLAKE_PASSWORD }}
-      SNOWFLAKE_ROLE:    ${{ secrets.SNOWFLAKE_ROLE }}     # if you set it as a secret
+      # Expose your Snowflake creds (set these in Settings → Secrets)
+      SNOWFLAKE_ACCOUNT:   ${{ secrets.SNOWFLAKE_ACCOUNT }}
+      SNOWFLAKE_USER:      ${{ secrets.SNOWFLAKE_USER }}
+      SNOWFLAKE_PASSWORD:  ${{ secrets.SNOWFLAKE_PASSWORD }}
+      SNOWFLAKE_ROLE:      ${{ secrets.SNOWFLAKE_ROLE }}
       SNOWFLAKE_WAREHOUSE: ${{ secrets.SNOWFLAKE_WAREHOUSE }}
 
     steps:
@@ -35,19 +36,29 @@ jobs:
 
       - name: Install dependencies
         run: |
-          python -m pip install --upgrade pip
+          pip install --upgrade pip
           pip install -r requirements.txt
           pip install papermill
 
-      - name: Run 1_load_data notebook
+      - name: Build .env from secrets
+        run: |
+          cat <<EOF > .env
+          SNOWFLAKE_ACCOUNT=$SNOWFLAKE_ACCOUNT
+          SNOWFLAKE_USER=$SNOWFLAKE_USER
+          SNOWFLAKE_PASSWORD=$SNOWFLAKE_PASSWORD
+          SNOWFLAKE_ROLE=$SNOWFLAKE_ROLE
+          SNOWFLAKE_WAREHOUSE=$SNOWFLAKE_WAREHOUSE
+          EOF
+
+      - name: Run Data-Load notebook
         run: |
           papermill \
-            notebooks/snowpark_bootstrap.ipynb.ipynb \
-            outputs/snowpark_bootstrap.ipynb-output.ipynb \
+            notebooks/snowpark_bootstrap.ipynb \
+            outputs/snowpark_bootstrap-output.ipynb \
             --parameters env_file=".env"
 
       - name: Upload executed notebook artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: executed-notebook
-          path: outputs/1_load_data-output.ipynb
+          path: outputs/snowpark_bootstrap-output.ipynb
