@@ -33,7 +33,7 @@ models:
   netflix_project:
     staging:
       +database: DBT_TARGET_DB  
-      +schema: DBT_TARHET_SCHEMA
+      +schema: DBT_TARGET_SCHEMA
       +materialized: view
       +snowflake_warehouse: dbt_wh
     marts:
