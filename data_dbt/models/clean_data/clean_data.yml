@@ -1,0 +1,39 @@
+version: 2
+
+sources:
+  - name: DATA_SOURCE
+    database: DBT_TARGET_DB
+    schema: DBT_TARGET_SCHEMA
+
+    tables:
+      # ────────────────────────────────────────────────────────────────────────
+      - name: STG_NETFLIX_TITLES_CORE
+        columns:
+          - name: director
+            tests:
+              - not_null:
+                  severity: warn
+                  tags: [critical]
+                  description: "No more than 10 % of rows should have a missing director."
+
+      # ────────────────────────────────────────────────────────────────────────
+      - name: STG_NETFLIX_TITLES_GENRES_AND_DATES
+        columns:
+          - name: film_description
+            tests:
+              - missing_values_less_than:
+                  max_ratio: 0.10 
+                  severity: warn
+                  tags: [middle]
+                  description: "Every title should have a description."
+
+      # ────────────────────────────────────────────────────────────────────────
+      - name: STG_NETFLIX_TITLES_PEOPLE
+        columns:
+          - name: director
+            tests:
+              - missing_values_less_than:
+                  max_ratio: 0.20
+                  severity: warn
+                  tags: [middle]
+                  description: "No more than 20 % of rows should have a missing director."

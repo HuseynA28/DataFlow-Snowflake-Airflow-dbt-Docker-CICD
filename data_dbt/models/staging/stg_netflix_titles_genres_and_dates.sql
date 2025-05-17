@@ -6,8 +6,8 @@ with raw_dataset as (
 )
 
 select
-    "show_id",
-    "listed_in",
-    "date_added",
-    "description"
+    "show_id" as show_id,
+    "listed_in" as  listed_in,
+    "date_added"  as date_added,
+    "description" as film_description
 from raw_dataset

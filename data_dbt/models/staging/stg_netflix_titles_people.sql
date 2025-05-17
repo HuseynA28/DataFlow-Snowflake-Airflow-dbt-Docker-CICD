@@ -6,7 +6,7 @@ with raw_dataset as (
 )
 
 select
-    "show_id",
-    "director",
-    "cast"
+    "show_id" as show_id,
+    "director" as director,
+    "cast" as cast,
 from raw_dataset

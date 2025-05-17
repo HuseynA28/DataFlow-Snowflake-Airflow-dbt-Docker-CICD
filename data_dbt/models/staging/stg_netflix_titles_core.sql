@@ -1,4 +1,4 @@
-{{ config(materialized='table') }}      -- or 'table' if you prefer
+{{ config(materialized='table') }} 
 
 with raw_dataset as (
     select *
@@ -6,11 +6,11 @@ with raw_dataset as (
 )
 
 select
-    "show_id",
-    "type",
-    "title",
-    "country",
-    "release_year",
-    "rating",
-    "duration"
+    "show_id" AS show_id,
+    "type" AS type,
+    "title" AS title,
+    "country" AS country,
+    "release_year" AS release_year,
+    "rating" AS rating,
+    "duration" AS duration
 from raw_dataset
