@@ -6,15 +6,4 @@ sources:
     schema: DBT_SCHEMA
     tables:
       - name: NETFLIX_DATA
-        columns:
-          - name: snow_id
-            tests:
-              - unique
-              - not_null:
-                  severity: warn
-                  tags: [critical]
-                  description: "Ensure no null values in 'your_column'"
-
-                
-                
-
+ 

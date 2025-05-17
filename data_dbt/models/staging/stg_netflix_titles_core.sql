@@ -1,4 +1,4 @@
-{{ config(materialized='table') }} 
+
 
 with raw_dataset as (
     select *

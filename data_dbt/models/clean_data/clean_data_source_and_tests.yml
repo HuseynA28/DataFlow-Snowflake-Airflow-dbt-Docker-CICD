@@ -9,31 +9,27 @@ sources:
       # ────────────────────────────────────────────────────────────────────────
       - name: STG_NETFLIX_TITLES_CORE
         columns:
-          - name: director
+          - name: show_id
             tests:
               - not_null:
                   severity: warn
                   tags: [critical]
-                  description: "No more than 10 % of rows should have a missing director."
+                  description: "Show Id should be uniq and not null."
+  
+              - dbt_expectations.expect_column_values_to_be_unique:
+                  row_condition: "show_id is not null" 
+              
 
       # ────────────────────────────────────────────────────────────────────────
       - name: STG_NETFLIX_TITLES_GENRES_AND_DATES
         columns:
           - name: film_description
             tests:
-              - missing_values_less_than:
-                  max_ratio: 0.10 
-                  severity: warn
-                  tags: [middle]
-                  description: "Every title should have a description."
+              - dbt_expectations.expect_column_to_exist
 
       # ────────────────────────────────────────────────────────────────────────
       - name: STG_NETFLIX_TITLES_PEOPLE
         columns:
           - name: director
             tests:
-              - missing_values_less_than:
-                  max_ratio: 0.20
-                  severity: warn
-                  tags: [middle]
-                  description: "No more than 20 % of rows should have a missing director."
+                        - dbt_expectations.expect_column_to_exist

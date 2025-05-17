@@ -1,15 +1,14 @@
-
 with src as (
-    select  *
-    from    {{ source('DATA_SOURCE', 'STG_NETFLIX_TITLES_CORE') }}
+    select *
+    FROM {{ ref('stg_netflix_titles_core') }}
 )
 
 select
     show_id,
-    initcap(trim(type))                      as title_type,      
-    trim(title)                       as title_name,
-    split(trim(country), ',')         as country,
-    trim(rating)                      as mpaa_rating,
-    trim(duration)                    ,
-    cast(release_year as int)         as release_year,
+    initcap(trim(type))         as type,      
+    trim(title)                 as title,
+    trim(country)                as country,
+    trim(rating)                as rating,
+    trim(duration)              as duration,
+    cast(release_year as int)   as release_year
 from src

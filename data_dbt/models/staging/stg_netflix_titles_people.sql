@@ -1,4 +1,3 @@
-{{ config(materialized='table') }}      -- or 'table' if you prefer
 
 with raw_dataset as (
     select *
@@ -8,5 +7,5 @@ with raw_dataset as (
 select
     "show_id" as show_id,
     "director" as director,
-    "cast" as cast,
+    "cast" as film_cast,
 from raw_dataset
