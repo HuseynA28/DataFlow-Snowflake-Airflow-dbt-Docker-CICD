@@ -34,7 +34,7 @@ models:
     staging:
       +database: DBT_TARGET_DB  
       +schema: DBT_TARGET_SCHEMA
-      +materialized: view
+      +materialized: table
       +snowflake_warehouse: dbt_wh
     marts:
       +materialized: table
