@@ -1,7 +1,7 @@
 
 with raw_dataset as (
     select *
-    from {{ source('NETFLIX_DATA_TEST', 'NETFLIX_DATA') }}
+    from {{ source('NETFLIX_DATA_SOURCE', 'NETFLIX_DATA') }}
 )
 
 select
