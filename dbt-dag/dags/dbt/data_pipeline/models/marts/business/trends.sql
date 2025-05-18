@@ -1,4 +1,5 @@
-{{ config(materialized = 'table') }}
+{{ config(materialized='table', transient=false, temporary=false) }}
+
 
 with monthly_genre as (
 

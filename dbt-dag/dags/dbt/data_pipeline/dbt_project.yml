@@ -44,6 +44,7 @@ models:
       +snowflake_warehouse: dbt_wh
     marts:
       +database: DBT_TARGET_DB  
+      +transient: false   
       +schema: DBT_TARGET_SCHEMA
       +materialized: table
       +snowflake_warehouse: dbt_wh
