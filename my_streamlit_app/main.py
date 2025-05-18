@@ -23,7 +23,7 @@ def load_csv(filename, parse_date_cols=None):
     return df
 
 
-tab1, tab2, tab3, tab4 = st.tabs(
+tab1, tab2, tab3 = st.tabs(
     ["Library Growth", "Mix over Time", "Trends"]
 )
 
@@ -62,10 +62,4 @@ with tab3:
         st.error(f"Error loading TRENDS.csv: {e}")
 
 
-with tab4:
-    st.header("🎬 Netflix Titles (example extra table)")
-    try:
-        df = load_csv("netflix_titles.csv")
-        st.dataframe(df, use_container_width=True)
-    except Exception as e:
-        st.error(f"Error loading netflix_titles.csv: {e}")
+

@@ -116,7 +116,11 @@ Open Airflow at localhost:8080 and trigger the dbt_dag DAG.  After the running t
 6. Access Airflow on port 8080 to monitor the pipeline.
 
 For further enhancements, consider building a dashboard or modifying dbt models to persist tables.
-
+##  Visualization
 I used Streamlit for the visualization.
 You can view it at the following link:
 https://dataflow-app-airflow-dbt-docker-cicd-sro96vwlwqtktkoswti55z.streamlit.app/
+
+Click on the logo to view the Streamlit app:
+
+[![Streamlit App](readme_file/streamlit-logo-png_seeklogo-458260.png)](https://dataflow-app-airflow-dbt-docker-cicd-sro96vwlwqtktkoswti55z.streamlit.app/)
