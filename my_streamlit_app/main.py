@@ -24,7 +24,7 @@ def load_csv(filename, parse_date_cols=None):
 
 
 tab1, tab2, tab3, tab4 = st.tabs(
-    ["Library Growth", "Mix over Time", "Trends", "Netflix Titles (extra)"]
+    ["Library Growth", "Mix over Time", "Trends"]
 )
 
 
