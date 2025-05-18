@@ -1,4 +1,4 @@
-dbt-snowflake=1.9.3
+dbt-snowflake==1.9.3
 dbt-core==1.9.3
 python-dotenv
 snowflake-snowpark-python
