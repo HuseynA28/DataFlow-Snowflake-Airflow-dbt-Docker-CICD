@@ -41,7 +41,7 @@ with tab1:
 with tab2:
     st.header("📊 Titles Added by Rating Group & Year")
     try:
-        df = load_csv("MIX_OVER_TIME_RATING.csv").head(100)
+        df = load_csv("MIX_OVER_TIME_RATING.csv")
         pivot = (
             df.groupby(["YEAR", "RATING_GROUP"])["TITLES_ADDED"]
             .sum().unstack(fill_value=0).sort_index()
@@ -55,7 +55,7 @@ with tab2:
 with tab3:
     st.header("📉 Overall Trends")
     try:
-        df = load_csv("TRENDS.csv", parse_date_cols=["YEAR_MONTH_KEY"]).head(100)
+        df = load_csv("TRENDS.csv", parse_date_cols=["YEAR_MONTH_KEY"])
         st.line_chart(df, x="YEAR_MONTH_KEY", y="TITLES_ADDED", use_container_width=True)
         st.dataframe(df, use_container_width=True)
     except Exception as e:
@@ -65,7 +65,7 @@ with tab3:
 with tab4:
     st.header("🎬 Netflix Titles (example extra table)")
     try:
-        df = load_csv("netflix_titles.csv").head(100)
+        df = load_csv("netflix_titles.csv")
         st.dataframe(df, use_container_width=True)
     except Exception as e:
         st.error(f"Error loading netflix_titles.csv: {e}")
