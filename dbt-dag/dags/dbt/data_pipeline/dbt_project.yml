@@ -43,5 +43,7 @@ models:
       +materialized: view
       +snowflake_warehouse: dbt_wh
     marts:
+      +database: DBT_TARGET_DB  
+      +schema: DBT_TARGET_SCHEMA
       +materialized: table
       +snowflake_warehouse: dbt_wh

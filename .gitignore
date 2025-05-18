@@ -1,2 +1,5 @@
 .venv
 .env
+my_streamlit/secrets.toml
+my_streamlit_app\streamlit\secrets.toml
+my_streamlit_app\streamlit
