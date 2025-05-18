@@ -1,8 +1,0 @@
-sources:
-  - name: NETFLIX_DATA_SOURCE
-    database: DBT_DB
-    schema: DBT_SCHEMA
-    tables:
-      - name: NETFLIX_DATA
-
- 
