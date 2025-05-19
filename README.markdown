@@ -98,7 +98,22 @@ These SQL models enable the Analytics team to derive actionable insights for mac
 Running the Pipeline
 Push to GitHub → GitHub Actions loads the dataset into Snowflake and runs dbt tests.
 
-Start Airflow with astro dev start or docker compose up.
+Start Airflow with astro dev start or docker compose up. 
+Do not  forget add the connetion 
+- connection type :snowflake 
+- connection id : snowflake_connect 
+- Login :DBT_USER
+- Password:StrongPassword12345
+  and  add json file into Extra Filed Josn 
+
+  {
+  "account": "XXXX-XXXXX",
+  "warehouse": "dbt_wh",
+  "database": "DBT_DB",
+  "role": "dbt_role",
+  "schema": "DBT_SCHEMA",
+  "insecure_mode": false
+}
 
 Open Airflow at localhost:8080 and trigger the dbt_dag DAG.  After the running the DAG you will se the result liek below 
 
