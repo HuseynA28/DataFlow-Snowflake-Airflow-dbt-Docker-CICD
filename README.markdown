@@ -104,8 +104,9 @@ Do not  forget add the connetion
 - connection id : snowflake_connect 
 - Login :DBT_USER
 - Password:StrongPassword12345
-  and  add json file into Extra Filed Josn 
+- and  add json file into Extra Filed Josn 
 
+```yaml
   {
   "account": "XXXX-XXXXX",
   "warehouse": "dbt_wh",
@@ -114,6 +115,7 @@ Do not  forget add the connetion
   "schema": "DBT_SCHEMA",
   "insecure_mode": false
 }
+```
 
 Open Airflow at localhost:8080 and trigger the dbt_dag DAG.  After the running the DAG you will se the result liek below 
 
